@@ -1,0 +1,537 @@
+{
+    "openapi":"3.0.0",
+    "info":{"title":"Hpnews Documentation",
+"description":"In this documentation you will be able to consult the API end-points and also test all available routes.Do not forget to register and carry out the authorization",
+"contact":{
+    "email": "hpontes420@gmail.com"
+}
+},
+    "servers":[
+        {"url":"http://localhost:3000",
+    "Description":"Local"}
+],
+    "paths":{
+        "/users/{id}/profile":{
+            "get":{
+            "sumary":"User Data",
+            "description":"Route responsible to get the  user data",
+            "tags":["User"],
+            "security":[{"bearerAuth":[]}],
+            "parameters":[{
+                "in":"path",
+                "name":"id",
+                "type":"String",
+                "description":"User id",
+                "required":true
+            }],
+            "responses":{
+"404":{
+    "description":"User not found"
+},
+"200":{
+    "description":"User data get sucessfully"
+},
+"403":{
+    "description":"Invalid user id"
+}
+
+            }}
+
+        },
+        "/users/update":{
+"patch":{
+    "sumary":"Update User data",
+    "description":"Route responsible to get the  user data and update",
+    "tags":["User"],
+    "security":[{"bearerAuth":[]}],
+    "parameters":[{
+        "in":"request",
+        "name":"Userid",
+        "type":"String",
+        "description":"User id",
+        "required":true
+    }],
+    "requestBody":{
+        "content":{
+            "aplication/json":{
+                "schema":{
+                    "$ref":"#/components/schemas/User"
+                },
+                "examples":{
+                    "User":{
+                        "value":{
+                            "email":"newEmail",
+                            "userName":"newUserName",
+                            "password":"newPassword",
+                            "avatar":"newAvatarUrl",
+                            "background":"newBackgroundUrl"
+                        }
+                    }
+                }
+            }
+        }
+   },
+    "responses":{
+        "403":{"description":"Invalid user id"},
+
+        "404":{
+            "description":"User not found"
+        },
+        "201":{
+            "description":"User data updated sucessfully"
+        }
+    }
+}
+
+        },
+        "/users/delete":{
+            "delete":{
+"sumary":"Delete a user",
+"description":"Route responsible to delete a user",
+"tags":["User"],
+"security":[{"bearerAuth":[]}],
+"parameters":[{
+    "in":"request",
+    "name":"Userid",
+    "type":"String",
+    "description":"User id",
+    "required":true
+}],
+"responses":{
+    "404":{
+        "description":"User not found"
+    },
+    "403":{
+        "description":"Invalid id"
+    },
+    "204":{
+        "description":"User deleted sucessfully"
+    }
+}
+
+            }
+        },
+        "/users/create":{
+          "post":{
+            "sumary":"Create a new user",
+            "description":"Route responsible for creating a new user",
+            "tags":["User"],
+            "requestBody":{
+                "content":{
+                    "aplication/json":{
+                        "schema":{
+                            "$ref":"#/components/schemas/User"
+                        },
+                        "examples":{
+                            "User":{
+                                "value":{
+                                    "email":"hpdev@exemple.com",
+                                    "password":"hpdevpassword"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses":{
+                "404":{
+                    "description":"Submit all fields"
+            
+                },
+                "409":{
+                    "description":"the User email already exists"
+                },
+                "201":{
+                    "description":"User created sucessfully"
+                }
+            }
+    }
+
+},
+        "/users/":{
+            "get":{
+                "sumary":"List all users",
+                "description":"Route responsible for list all users",
+                "tags":["User"],
+                "security":[{"bearerAuth":{}}],
+                "responses":{
+                    "401":{
+                        "description":"Unathorized  token"
+                    },
+                    "404":{
+                        "description":"Theres no users"
+                    },
+                    "200":{
+                        "description":"Show all the users"}
+                }
+            }
+        },
+        "/login":{
+            "post":{
+"sumary":"Login with a user",
+"description":"Route responsible  to authenticate and generate the user authorization token",
+"tags":["Authorization"],
+"requestBody":{
+    "content":{
+        "aplication/json":{
+            "schema":{
+                "$ref":"#/components/schemas/User"
+            },
+            "examples":{
+                "User":{
+                    "value":{
+                        "email":"hpdev@exemple.com",
+                        "password":"hpdevpassword"
+                    }
+                }
+            }
+        }
+    }
+    
+},"responses":{
+    "404":{
+        "description":"Submit all fields"
+    },
+    "422":{
+        "description":"User email or password wrong"
+    },
+    "201":{
+        "description":"User authenticated and Token created"
+    }
+    
+}
+                
+            }
+        },
+        "/news/{id}/news":{
+            "get":{
+                "sumary":"get news by id",
+                "description":"Route responsible  to show the news information",
+                "tags":["News"],
+                "parameters":[
+                  {
+                    "in":"path",
+                    "name":"id",
+                    "type":"String",
+                    "description":"News id",
+                    "required":true
+                  }
+                ],
+                "responses":{
+                    "404":{
+                        "description":"News not found"
+                    },
+                    "200":{
+                        "description":"Show News information"
+                }
+                }
+            }
+        },
+        "/news/{id}/delete":{
+            "delete":{
+                "sumary":"Delete a News",
+                "description":"Route responsible  to delete a news",
+                "security":[{"bearerAuth":[]}],
+                "tags":["News"],
+                "parameters":[
+                  {
+                    "in":"path",
+                    "name":"id",
+                    "type":"String",
+                    "description":"News id",
+                    "required":true
+                  }
+                ],
+                "responses":{
+                    "404":{
+                        "description":"News not found"
+                    },
+                    "401":{
+                        "description":"You do not have permision to delete this news"
+                    },
+                    "200":{
+                        "description":"News deleted sucessfully"
+                    }
+                }
+            }
+        },
+        "/news/{id}/update":{
+            "patch":{
+                "sumary":"Update News information",
+                "description" :"Route responsible to update the news information",
+                "security":[{"bearerAuth:":[]}],
+                "tags":["News"],
+                "requestBody":{
+                    "content":{
+                        "aplication/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/News"
+                            },
+                            "examples":{
+                                "News":{
+                                    "value":{
+                                        "title":"newTitle",
+                                        "content":"newContent",
+                                        "banner":"newBanner"
+                                    }
+                                }
+                            }
+                        }
+                        
+            
+                    }
+                },
+                "responses":{
+                    "401":{
+                        "description":"You do not have permision to update this news"
+                    },
+                    "404":{
+                        "description":"News not found"
+                    },
+                    "201":{
+                        "description":"News updated sucessfully"
+                    }
+                }
+            }
+        },
+        "/news/{id}/like":{
+            "patch":{
+                "sumary":"Toggle Like",
+                "description":"Acess this route to add or delete a like data of a news",
+                "security":[{"bearerAuth":[]}],
+                "tags":["News"],
+                "responses":{
+                    "404":{
+                        "description":"News not found"
+                    },
+                    "401":{
+                        "description":"Unathorized User"
+                    },
+                    "201":{
+                        "description":"Like created sucessfully"
+                    },
+                    "200":{
+                        "description":"Like delete sucessfully"
+                    }
+                }
+            }
+        },
+        "/news/{id}/comment":{
+    
+        "patch":{
+            "sumary":"Create a comment",
+            "description":"Acess this route to create a comment",
+            "security":[{"bearerAuth":[]}],
+            "tags":["News"],
+            "parameters":[
+                {
+                    "in":"path",
+                    "name":"id",
+                    "type":"String",
+                    "description":"News id",
+                    "required":true
+                }
+            ],
+            "requestBody":{
+                "content":{
+                    "aplication/json":{
+                        "schema":{
+                            "$ref":"#/components/schemas/News"
+                        },
+                        "examples":{
+                            "News":{
+                                "value":{
+                                    "comment":"some comment"
+                                
+                            }}
+                        }
+                    }
+            }},
+   
+            "responses":{
+                "404":{
+                    "description":"News not found"
+                },
+                "401":{
+                    "description":"Unathorized User"
+                },
+                "409":{
+                    "description":"Type a comment"
+                },
+                "201":{
+                    "description":"comment Created sucessfully"}
+            }
+        }
+        },
+        "/news/{id}/comment/{commentId}/delete":{
+            "patch":{
+                "sumary":"Delete comment",
+                "description":"Delete the user logged comment",
+                "tags":["News"],
+                "security":[{"bearerAuth":[]}],
+                "parameters":[
+                    {
+
+                        "in":"path",
+                        "name":"id",
+                        "type":"String",
+                        "description":"News id",
+                        "required":true
+                    },
+                    {
+                        "in":"path",
+                        "name":"commentId",
+                        "type":"String",
+                        "description":"comment id",
+                        "required":true
+                    }
+                ],
+                "responses":{
+                    "404":{
+                        "description":"News or comment not found"
+                    },
+                    "401":{
+                        "description":"Unathorized User"
+                    },
+                    "200":{
+                        "description":"comment deleted sucessfully"
+                    }
+                }
+            }
+        },
+        "/news/topnews":{
+            "sumary":"Get the latest news",
+            "description":"Route responsible to get the latest news posted",
+            "tags":["News"],
+            "responses":{
+                "200":{
+                    "description":"Show the News"
+                },
+                "404":{
+                    "description":"Theres no news"
+            }
+            }
+                },
+                "/news/":{
+                    "get":{
+                        "sumary":"Get all news",
+                        "description":"This route get all database news",
+                        "tags":["News"],
+                        "parameters":[{
+
+                            "in":"query",
+                            "name":"limit",
+                            "type":"String"
+                        },
+                    {
+                        
+                        "in":"query",
+                        "name":"offset",
+                        "type":"String"
+                    }
+                    ],
+                        "responses":{
+                            "404":{
+                                "description":"Theres no news"
+                            },
+                            "200":{
+                                "description":"show all the news"
+                            }
+                        }
+                    }
+                },
+        "/news/search":{
+            "get":{
+                "sumary":"Search news by title",
+                "description":"Search a news by the title",
+                "tags":["News"],
+                "parameters":[{
+                 "in":"query",
+                 "name":"title",
+                 "type":"String"
+                }],
+                "responses":{
+                    "404":{
+                        "description":"theres no news with this title"
+                    },
+                    "200":{
+                        "description":"show news by title search"
+                    }
+                }
+            }
+        },
+        "/news/user/news":{
+            "get":{
+            "sumary":"Get news by user ",
+            "description":"This route get all the news created by the user logged",
+            "security":[{"bearerAuth":[]}],
+            "tags":["News"],
+            "responses":{
+                "404":{
+                    "description":"Theres no news"
+                },
+                "200":{
+                    "description":"show user news"
+                }
+            }
+            }
+        }
+    },
+    "components":{
+        "securitySchemes":{
+    "bearerAuth":{
+        "type":"http",
+        "scheme":"bearer",
+        "bearerFormat":"JWT"
+    }  
+        },
+        "schemas":{
+            
+            "User":{
+                "type":"object",
+                "properties":{
+                    "userName":{
+                        "type":"String"
+        
+                    },
+                    "email":{
+                        "type":"String"
+                      
+                    },
+                    "password":{
+                        "type":"String"
+                    },
+                    "avatar":{
+                        "type":"String"
+                    },
+                    "background":{
+                        "type":"String"
+                    }
+                }
+            },
+            "News":{
+                "type":"object",
+                "properties":{
+                    "title":{
+                        "type":"String"
+                    },
+                    "content":{
+                        "type":"String"
+                    },
+                    "banner":{
+                        "type":"String"
+                    },
+                    "user":{
+                        "type":"mongoose.Schema.Types.ObjectId"
+                    },
+                    "likes":{
+                        "type":"Array"
+                    },
+                    "comments":{
+                        "type":"Array"
+                    }
+                }
+            }
+        }
+    }
+}
