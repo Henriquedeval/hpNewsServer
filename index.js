@@ -4,7 +4,7 @@ import userRoutes from './routes/UserRoutes.js'
 import connectDb from './database/index.js'
 import NewsRoutes from './routes/newsRoutes.js'
 import loginRoutes from './routes/loginRoutes.js'
-import SwaggerRoutes from './routes/SwaggerRoute.js'
+import SwaggerRoutes from './routes/SwaggerRoute.cjs'
 const app=express()
 const port=process.env.PORT
 
