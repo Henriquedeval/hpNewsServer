@@ -5,7 +5,7 @@
 - SERVER : EXPRESS
 - SECURITY: JWT AND BCRYPT
 - DOCUMENTATION: SWAGGER-UI
-## NPM INSTALL
+## NPM PACKAGES
 - express
 - jsonwebtoken
 - bcrypt
