@@ -1,4 +1,4 @@
-import { Router } from "express";
+const { Router }=require ("express");
 const swaggerUi= require( 'swagger-ui-express')
 const swaggerDocument=  require('../swagger.json' )
 const SwaggerRoutes= Router()
