@@ -6,4 +6,4 @@ const SwaggerRoutes= Router()
 SwaggerRoutes.use('/',swaggerUi.serve)
 SwaggerRoutes.get('/',swaggerUi.setup(swaggerDocument))
 
-export default SwaggerRoutes
+module.exports= SwaggerRoutes
