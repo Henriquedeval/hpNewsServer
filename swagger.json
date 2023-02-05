@@ -129,8 +129,10 @@
                         "examples":{
                             "User":{
                                 "value":{
+                                    "userName":"hpUserName",
                                     "email":"hpdev@exemple.com",
                                     "password":"hpdevpassword"
+                                    
                                 }
                             }
                         }
